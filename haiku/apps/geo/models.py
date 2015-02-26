@@ -3,8 +3,8 @@ from import_export import resources
 
 
 class ModernPrefectureManager(models.Manager):
-     def get_by_natural_key(self, name):
-        return self.get(name=name)
+    def get_by_natural_key(self, roman_name):
+        return self.get(roman_name=roman_name)
 
      
 class ModernPrefecture(models.Model):
@@ -12,40 +12,45 @@ class ModernPrefecture(models.Model):
 
     objects = ModernPrefectureManager()
 
-    name = models.CharField(max_length=255)
-
+    japanese_name = models.CharField(max_length=255)
+    roman_name = models.CharField(max_length=255)
+    x_coordinate = models.DecimalField(max_digits=15, decimal_places=12, blank=True)
+    y_coordinate = models.DecimalField(max_digits=15, decimal_places=12, blank=True)
+    
     # generate natural key
     def natural_key(self):
-        return (self.name,)
+        return (self.roman_name)
 
     def __unicode__(self):
-        return self.name
+        return self.roman_name
 
 
 class ProvinceManager(models.Manager):
-     def get_by_natural_key(self, name):
-        return self.get(name=name)
-
+     def get_by_natural_key(self, roman_name):
+        return self.get(roman_name=roman_name)
      
 class Province(models.Model):
     '''Name of 18th/19th century Japanese province'''
 
     objects = ProvinceManager()
 
-    name = models.CharField(max_length=255)
+    japanese_name = models.CharField(max_length=255)
+    roman_name = models.CharField(max_length=255)
     modern_name = models.ForeignKey('ModernPrefecture', blank=True, null=True)
+    x_coordinate = models.DecimalField(max_digits=15, decimal_places=12, blank=True)
+    y_coordinate = models.DecimalField(max_digits=15, decimal_places=12, blank=True)
 
     # generate natural key
     def natural_key(self):
-        return (self.name,)
+        return (self.roman_name)
 
     def __unicode__(self):
-        return self.name
+        return self.roman_name
 
-    
+        
 class ModernCityManager(models.Manager):
-     def get_by_natural_key(self, name):
-        return self.get(name=name)
+    def get_by_natural_key(self, roman_name):
+        return self.get(roman_name=roman_name)
 
      
 class ModernCity(models.Model):
@@ -53,7 +58,8 @@ class ModernCity(models.Model):
 
     objects = ModernCityManager()
 
-    name = models.CharField(max_length=255)
+    japanese_name =  models.CharField(max_length=255)
+    roman_name = models.CharField(max_length=255)
     prefecture = models.ForeignKey('ModernPrefecture', blank=True, null=True)
     x_coordinate = models.DecimalField(max_digits=15, decimal_places=12, blank=True)
     y_coordinate = models.DecimalField(max_digits=15, decimal_places=12, blank=True)
@@ -79,7 +85,8 @@ class City(models.Model):
 
     objects = CityManager()
 
-    name = models.CharField(max_length=255)
+    japanese_name =  models.CharField(max_length=255)
+    roman_name = models.CharField(max_length=255)
     modern_name = models.ForeignKey('ModernCity', blank=True, null=True)
     province = models.ForeignKey('Province', blank=True, null=True)
     x_coordinate = models.DecimalField(max_digits=15, decimal_places=12, blank=True, null=True)
@@ -106,7 +113,8 @@ class Structure(models.Model):
 
     objects = StructureManager()
 
-    name = models.CharField(max_length=255)
+    japanese_name =  models.CharField(max_length=255)
+    roman_name = models.CharField(max_length=255)
     city = models.ForeignKey('City', blank=True, null=True)
     province = models.ForeignKey('Province', blank=True, null=True)
     x_coordinate = models.DecimalField(max_digits=15, decimal_places=12, blank=True, null=True)
@@ -115,7 +123,7 @@ class Structure(models.Model):
 
     # generate natural key
     def natural_key(self):
-        return (self.name,)
+        return (self.name)
 
     def __unicode__(self):
         return self.name

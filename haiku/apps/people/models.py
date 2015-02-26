@@ -61,8 +61,8 @@ class Person(models.Model):
     )
     japanese_family_name = models.CharField(max_length=100, blank=True, verbose_name='Japanese family name')
     japanese_personal_name = models.CharField(max_length=100, blank=True, verbose_name='Japanese personal name(s)')
-    last_name = models.CharField(max_length=100, verbose_name='Romanized family name')
-    first_name = models.CharField(max_length=100, blank=True, verbose_name='Romanized personal name(s)')
+    roman_family_name = models.CharField(max_length=100, verbose_name='Romanized family name')
+    roman_personal_name = models.CharField(max_length=100, blank=True, verbose_name='Romanized personal name(s)')
     birth_japanese = models.CharField(max_length=255, blank=True, verbose_name='Birth, Japanese date')
     death_japanese = models.CharField(max_length=255, blank=True, verbose_name='Death, Japanese date')
     birth_roman = ddx.ApproximateDateField(blank=True, verbose_name='Birth, Roman date', help_text=mark_safe('YYYY, MM/YYYY, DD/MM/YYYY<br>Visit <a href="http://keisan.casio.jp/exec/system/1239884730" target="_blank">Keisan website</a> to convert'))
@@ -74,13 +74,13 @@ class Person(models.Model):
     notes = models.TextField(blank=True)
 
     def natural_key(self):
-        return (self.last_name, self.first_name)
+        return (self.roman_family_name, self.roman_personal_name)
     
     def __unicode__(self):
-        if not self.first_name:
-            return self.last_name
+        if not self.roman_personal_name:
+            return self.roman_family_name
         else:
-            return '%s %s' % (self.last_name, self.first_name)
+            return '%s %s' % (self.roman_family_name, self.roman_family_name)
 
     def dates_converted(self):
         if self.birth_japanese != None and self.birth_japanese != '' and \
@@ -96,14 +96,14 @@ class Person(models.Model):
         
     class Meta:
         verbose_name_plural = 'People'
-        unique_together = ('first_name', 'last_name')
-        ordering = ['last_name', 'first_name']
+        unique_together = ('roman_family_name', 'roman_personal_name')
+        ordering = ['roman_family_name', 'roman_personal_name']
 
        
         
 class NameManager(models.Manager):
-    def get_by_natural_key(self, first_name, last_name, person):
-        self.get(first_name=first_name, last_name=last_name)
+    def get_by_natural_key(self, roman_personal_name, roman_family_name, person):
+        self.get(roman_personal_name=roman_personal_name, roman_family_name=roman_family_name)
 
 
 class Name(models.Model):
@@ -112,23 +112,23 @@ class Name(models.Model):
 
     japanese_family_name = models.CharField(max_length=100, blank=True, verbose_name='Japanese family name')
     japanese_personal_name = models.CharField(max_length=100, blank=True, verbose_name='Japanese personal name(s)')
-    last_name = models.CharField(max_length=100, verbose_name='Romanized family name')
-    first_name = models.CharField(max_length=100, blank=True, verbose_name='Romanized personal name(s)')
+    roman_family_name = models.CharField(max_length=100, verbose_name='Romanized family name')
+    roman_personal_name = models.CharField(max_length=100, blank=True, verbose_name='Romanized personal name(s)')
     person = models.ForeignKey('Person')
 
     def natural_key(self):
-        return (self.last_name, self.first_name)
+        return (self.roman_family_name, self.roman_personal_name)
 
     def __unicode__(self):
-        if not self.first_name:
-            return self.last_name
+        if not self.roman_personal_name:
+            return self.roman_family_name
         else:
-            return '%s %s' % (self.last_name, self.first_name)
+            return '%s %s' % (self.roman_family_name, self.roman_personal_name)
 
 
 class PenNameManager(models.Manager):
-    def get_by_natural_key(self, name):
-        return self.get(name=name)
+    def get_by_natural_key(self, roman_name):
+        return self.get(roman_name=roman_name)
 
 
 class PenName(models.Model):
@@ -136,7 +136,7 @@ class PenName(models.Model):
     objects = PenNameManager()
 
     japanese_name = models.CharField(blank=True, max_length=200)
-    romanized_name = models.CharField(max_length=200)
+    roman_name = models.CharField(max_length=200, verbose_name='Romanized name')
     person = models.ForeignKey('Person')
 
     def natural_key(self):

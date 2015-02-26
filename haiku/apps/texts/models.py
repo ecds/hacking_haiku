@@ -157,7 +157,9 @@ class WorkResource(resources.ModelResource):
 
         
 class VerseResource(resources.ModelResource):
-
+    #author = fields.Field(column_name='author', attribute='author', widget=ForeignKeyWidget(Person, 'name'))
+    #work
+    #kigo
     class Meta:
         model = Verse
 

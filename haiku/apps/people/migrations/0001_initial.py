@@ -28,8 +28,8 @@ class Migration(SchemaMigration):
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('japanese_family_name', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
             ('japanese_personal_name', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('last_name', self.gf('django.db.models.fields.CharField')(max_length=100)),
-            ('first_name', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
+            ('roman_family_name', self.gf('django.db.models.fields.CharField')(max_length=100)),
+            ('roman_personal_name', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
             ('birth_japanese', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
             ('death_japanese', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
             ('birth_roman', self.gf('django_date_extensions.fields.ApproximateDateField')(max_length=10, blank=True)),
@@ -40,8 +40,8 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal(u'people', ['Person'])
 
-        # Adding unique constraint on 'Person', fields ['first_name', 'last_name']
-        db.create_unique(u'people_person', ['first_name', 'last_name'])
+        # Adding unique constraint on 'Person', fields ['roman_family_name', 'roman_personal_name']
+        db.create_unique(u'people_person', ['roman_family_name', 'roman_personal_name'])
 
         # Adding M2M table for field roles on 'Person'
         m2m_table_name = db.shorten_name(u'people_person_roles')
@@ -66,8 +66,8 @@ class Migration(SchemaMigration):
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('japanese_family_name', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
             ('japanese_personal_name', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('last_name', self.gf('django.db.models.fields.CharField')(max_length=100)),
-            ('first_name', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
+            ('roman_family_name', self.gf('django.db.models.fields.CharField')(max_length=100)),
+            ('roman_personal_name', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
             ('person', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['people.Person'])),
         ))
         db.send_create_signal(u'people', ['Name'])
@@ -76,15 +76,15 @@ class Migration(SchemaMigration):
         db.create_table(u'people_penname', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('japanese_name', self.gf('django.db.models.fields.CharField')(max_length=200, blank=True)),
-            ('romanized_name', self.gf('django.db.models.fields.CharField')(max_length=200)),
+            ('roman_name', self.gf('django.db.models.fields.CharField')(max_length=200)),
             ('person', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['people.Person'])),
         ))
         db.send_create_signal(u'people', ['PenName'])
 
 
     def backwards(self, orm):
-        # Removing unique constraint on 'Person', fields ['first_name', 'last_name']
-        db.delete_unique(u'people_person', ['first_name', 'last_name'])
+        # Removing unique constraint on 'Person', fields ['roman_family_name', 'roman_personal_name']
+        db.delete_unique(u'people_person', ['roman_family_name', 'roman_personal_name'])
 
         # Deleting model 'Role'
         db.delete_table(u'people_role')
@@ -117,35 +117,35 @@ class Migration(SchemaMigration):
         },
         u'people.name': {
             'Meta': {'object_name': 'Name'},
-            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'japanese_family_name': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
             'japanese_personal_name': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
-            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'person': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['people.Person']"})
+            'person': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['people.Person']"}),
+            'roman_family_name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
+            'roman_personal_name': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'})
         },
         u'people.penname': {
             'Meta': {'object_name': 'PenName'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'japanese_name': ('django.db.models.fields.CharField', [], {'max_length': '200', 'blank': 'True'}),
             'person': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['people.Person']"}),
-            'romanized_name': ('django.db.models.fields.CharField', [], {'max_length': '200'})
+            'roman_name': ('django.db.models.fields.CharField', [], {'max_length': '200'})
         },
         u'people.person': {
-            'Meta': {'ordering': "['last_name', 'first_name']", 'unique_together': "(('first_name', 'last_name'),)", 'object_name': 'Person'},
+            'Meta': {'ordering': "['roman_family_name', 'roman_personal_name']", 'unique_together': "(('roman_family_name', 'roman_personal_name'),)", 'object_name': 'Person'},
             'birth_japanese': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
             'birth_roman': ('django_date_extensions.fields.ApproximateDateField', [], {'max_length': '10', 'blank': 'True'}),
             'death_japanese': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
             'death_roman': ('django_date_extensions.fields.ApproximateDateField', [], {'max_length': '10', 'blank': 'True'}),
-            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
             'gender': ('django.db.models.fields.CharField', [], {'max_length': '1', 'blank': 'True'}),
             'groups': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['people.Group']", 'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'japanese_family_name': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
             'japanese_personal_name': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
-            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'notes': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'roles': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['people.Role']", 'null': 'True', 'blank': 'True'}),
+            'roman_family_name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
+            'roman_personal_name': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
             'uri': ('django.db.models.fields.URLField', [], {'max_length': '200', 'blank': 'True'})
         },
         u'people.role': {

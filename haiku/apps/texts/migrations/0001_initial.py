@@ -148,37 +148,46 @@ class Migration(SchemaMigration):
         u'geo.city': {
             'Meta': {'object_name': 'City'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'japanese_name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'modern_name': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['geo.ModernCity']", 'null': 'True', 'blank': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'province': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['geo.Province']", 'null': 'True', 'blank': 'True'}),
+            'roman_name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'x_coordinate': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '15', 'decimal_places': '12', 'blank': 'True'}),
             'y_coordinate': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '15', 'decimal_places': '12', 'blank': 'True'})
         },
         u'geo.moderncity': {
             'Meta': {'object_name': 'ModernCity'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
+            'japanese_name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'prefecture': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['geo.ModernPrefecture']", 'null': 'True', 'blank': 'True'}),
+            'roman_name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'x_coordinate': ('django.db.models.fields.DecimalField', [], {'max_digits': '15', 'decimal_places': '12', 'blank': 'True'}),
             'y_coordinate': ('django.db.models.fields.DecimalField', [], {'max_digits': '15', 'decimal_places': '12', 'blank': 'True'})
         },
         u'geo.modernprefecture': {
             'Meta': {'object_name': 'ModernPrefecture'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '255'})
+            'japanese_name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
+            'roman_name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
+            'x_coordinate': ('django.db.models.fields.DecimalField', [], {'max_digits': '15', 'decimal_places': '12', 'blank': 'True'}),
+            'y_coordinate': ('django.db.models.fields.DecimalField', [], {'max_digits': '15', 'decimal_places': '12', 'blank': 'True'})
         },
         u'geo.province': {
             'Meta': {'object_name': 'Province'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'japanese_name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'modern_name': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['geo.ModernPrefecture']", 'null': 'True', 'blank': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '255'})
+            'roman_name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
+            'x_coordinate': ('django.db.models.fields.DecimalField', [], {'max_digits': '15', 'decimal_places': '12', 'blank': 'True'}),
+            'y_coordinate': ('django.db.models.fields.DecimalField', [], {'max_digits': '15', 'decimal_places': '12', 'blank': 'True'})
         },
         u'geo.structure': {
             'Meta': {'object_name': 'Structure'},
             'city': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['geo.City']", 'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
+            'japanese_name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'province': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['geo.Province']", 'null': 'True', 'blank': 'True'}),
+            'roman_name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'x_coordinate': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '15', 'decimal_places': '12', 'blank': 'True'}),
             'y_coordinate': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '15', 'decimal_places': '12', 'blank': 'True'}),
             'z_coordinate': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '15', 'decimal_places': '12', 'blank': 'True'})
@@ -190,20 +199,20 @@ class Migration(SchemaMigration):
             'notes': ('django.db.models.fields.TextField', [], {'blank': 'True'})
         },
         u'people.person': {
-            'Meta': {'ordering': "['last_name', 'first_name']", 'unique_together': "(('first_name', 'last_name'),)", 'object_name': 'Person'},
+            'Meta': {'ordering': "['roman_family_name', 'roman_personal_name']", 'unique_together': "(('roman_family_name', 'roman_personal_name'),)", 'object_name': 'Person'},
             'birth_japanese': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
             'birth_roman': ('django_date_extensions.fields.ApproximateDateField', [], {'max_length': '10', 'blank': 'True'}),
             'death_japanese': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
             'death_roman': ('django_date_extensions.fields.ApproximateDateField', [], {'max_length': '10', 'blank': 'True'}),
-            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
             'gender': ('django.db.models.fields.CharField', [], {'max_length': '1', 'blank': 'True'}),
             'groups': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['people.Group']", 'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'japanese_family_name': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
             'japanese_personal_name': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
-            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'notes': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'roles': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['people.Role']", 'null': 'True', 'blank': 'True'}),
+            'roman_family_name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
+            'roman_personal_name': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
             'uri': ('django.db.models.fields.URLField', [], {'max_length': '200', 'blank': 'True'})
         },
         u'people.role': {

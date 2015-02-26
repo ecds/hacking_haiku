@@ -6,19 +6,6 @@ from haiku.apps.admin.models import LinkedInline, get_admin_url
 from import_export.admin import ExportActionModelAdmin
 
 
-class WorkExport(ExportActionModelAdmin):
-    resource_class = WorkResource
-    to_encoding = 'utf-8'
-    pass
-
-
-class WorkAdmin(WorkExport, admin.ModelAdmin):
-    list_display = ['japanese_title', 'english_title', 'romanized_title', 'roman_date', 'dates_converted']
-    search_fields = ['japanese_title', 'english_title', 'romanized_title', 'notes']
-    form = WorkForm
-admin.site.register(Work, WorkAdmin)
-
-
 class VerseInline(LinkedInline):
     model = Verse
     extra = 0
@@ -27,6 +14,25 @@ class VerseInline(LinkedInline):
     verbose_name_plural = "Related Verses"
     admin_model_parent = "texts"
     admin_model_path = "verse"
+
+
+class WorkExport(ExportActionModelAdmin):
+    resource_class = WorkResource
+    to_encoding = 'utf-8'
+    pass
+
+
+class WorkAdmin(WorkExport, admin.ModelAdmin):
+    class Media:
+      js = (settings.STATIC_URL + 'js/admin/collapseTabularInlines.js',)
+      css = { "all" : (settings.STATIC_URL +"css/admin/admin_styles.css",) }
+    list_display = ['japanese_title', 'english_title', 'romanized_title', 'roman_date', 'dates_converted']
+    search_fields = ['japanese_title', 'english_title', 'romanized_title', 'notes']
+    form = WorkForm
+    inlines = [
+        VerseInline,
+        ]
+admin.site.register(Work, WorkAdmin)
 
     
 class VerseExport(ExportActionModelAdmin):
