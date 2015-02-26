@@ -34,8 +34,8 @@ class ProvinceAdmin(ProvinceExport, admin.ModelAdmin):
     class Media:
       js = (settings.STATIC_URL + 'js/admin/collapseTabularInlines.js',)
       css = { "all" : (settings.STATIC_URL +"css/admin/admin_styles.css",) }
-    list_display = ['name', 'modern_name']
-    search_fields = ['name', 'modern_name']
+    list_display = ['roman_name', 'japanese_name', 'modern_name']
+    search_fields = ['roman_name', 'japanese_name', 'modern_name']
     inlines = [
         
         ]
@@ -53,8 +53,8 @@ class ModernPrefectureAdmin(ModernPrefectureExport, admin.ModelAdmin):
     class Media:
       js = (settings.STATIC_URL + 'js/admin/collapseTabularInlines.js',)
       css = { "all" : (settings.STATIC_URL +"css/admin/admin_styles.css",) }
-    list_display = ['name']
-    search_fields = ['name']
+    list_display = ['roman_name', 'japanese_name']
+    search_fields = ['roman_name', 'japanese_name']
     inlines = [
         
         ]
@@ -72,8 +72,8 @@ class CityAdmin(CityExport, admin.ModelAdmin):
     class Media:
       js = (settings.STATIC_URL + 'js/admin/collapseTabularInlines.js',)
       css = { "all" : (settings.STATIC_URL +"css/admin/admin_styles.css",) }
-    list_display = ['name', 'province', 'modern_name']
-    search_fields = ['name', 'province', 'modern_name']
+    list_display = ['roman_name', 'japanese_name', 'province', 'modern_name']
+    search_fields = ['roman_name', 'japanese_name', 'province', 'modern_name']
     inlines = [
         VerseCityInline
         ]
@@ -91,8 +91,8 @@ class ModernCityAdmin(ModernCityExport, admin.ModelAdmin):
     class Media:
       js = (settings.STATIC_URL + 'js/admin/collapseTabularInlines.js',)
       css = { "all" : (settings.STATIC_URL +"css/admin/admin_styles.css",) }
-    list_display = ['name', 'prefecture']
-    search_fields = ['name', 'prefecture']
+    list_display = ['roman_name', 'japanese_name', 'prefecture']
+    search_fields = ['roman_name', 'japanese_name', 'prefecture']
     inlines = [
         
         ]
@@ -110,8 +110,8 @@ class StructureAdmin(StructureExport, admin.ModelAdmin):
     class Media:
       js = (settings.STATIC_URL + 'js/admin/collapseTabularInlines.js',)
       css = { "all" : (settings.STATIC_URL +"css/admin/admin_styles.css",) }
-    list_display = ['name', 'city', 'province']
-    search_fields = ['name', 'city', 'province']
+    list_display = ['roman_name', 'japanese_name', 'city', 'province']
+    search_fields = ['roman_name', 'japanese_name', 'city', 'province']
     inlines = [
         VerseStructureInline
         ]

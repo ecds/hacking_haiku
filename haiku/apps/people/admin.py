@@ -66,10 +66,10 @@ class PersonAdmin(PersonExport, admin.ModelAdmin):
     class Media:
       js = (settings.STATIC_URL + 'js/admin/collapseTabularInlines.js',)
       css = { "all" : (settings.STATIC_URL +"css/admin/admin_styles.css",) }
-    list_display = ['last_name', 'first_name', 'gender', 'uri', 'dates_converted']
+    list_display = ['roman_family_name', 'roman_personal_name', 'gender', 'uri', 'dates_converted']
     list_filter = ['gender', 'groups', 'roles']
-    search_fields = ['last_name', 'first_name', 'gender', 'notes', 'uri']
-    list_display_links = ['last_name', 'first_name']
+    search_fields = ['roman_family_name', 'roman_personal_name', 'gender', 'notes', 'uri']
+    list_display_links = ['roman_family_name', 'roman_personal_name']
     inlines = [
         AltNamesInline,
         PenNamesInline,
