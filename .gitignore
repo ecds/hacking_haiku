@@ -1,0 +1,8 @@
+*.pyc
+test-results/
+doc/_build/
+dist/
+build/
+
+haiku/localsettings.py
+haiku/settings.py
