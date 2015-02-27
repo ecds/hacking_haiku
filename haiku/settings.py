@@ -119,3 +119,4 @@ except ImportError:
     print >>sys.stderr, '''Settings not defined. Please configure a version
         of localsettings.py for this site. See localsettings.py.dist for
         setup details.'''
+
