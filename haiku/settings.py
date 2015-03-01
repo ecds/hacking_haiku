@@ -15,7 +15,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # Application definition
 
 INSTALLED_APPS = (
-    #'django_admin_bootstrapped.bootstrap3',
     'django_admin_bootstrapped',
     #default apps#####################
     'django.contrib.admin',
@@ -120,3 +119,4 @@ except ImportError:
         of localsettings.py for this site. See localsettings.py.dist for
         setup details.'''
 
+DAB_FIELD_RENDERER = 'django_admin_bootstrapped.renderers.BootstrapFieldRenderer'
