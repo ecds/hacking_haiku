@@ -15,9 +15,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # Application definition
 
 INSTALLED_APPS = (
-    'bootstrap3',
+    #'bootstrap3',
+    #'django_admin_bootstrapped.bootstrap3',
     'django_admin_bootstrapped',
-    'django_admin_bootstrapped.bootstrap3',
     #default apps#####################
     'django.contrib.admin',
     'django.contrib.auth',
@@ -89,7 +89,7 @@ USE_TZ = True
 # STATICFILES_DIRS = ( os.path.join('static'), )
 
 STATIC_URL = '/static/'
-STATIC_ROOT = ''
+STATIC_ROOT = '/data/django/hacking_haiku/static/'
 
 
 

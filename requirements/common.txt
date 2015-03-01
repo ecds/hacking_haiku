@@ -3,6 +3,7 @@ mysql-python
 South==1.0.2
 django-admin-bootstrapped
 django-import-export
+django-jquery==1.9.1
 
 #partial dates
 git+git://github.com/dracos/django-date-extensions.git

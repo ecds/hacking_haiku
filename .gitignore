@@ -6,3 +6,10 @@ build/
 
 haiku/localsettings.py
 haiku/settings.py
+venv
+admin
+bootstrap
+haiku/local_my.cnf
+haiku/static
+haiku/templates
+
