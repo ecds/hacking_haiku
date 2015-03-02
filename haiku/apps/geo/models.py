@@ -16,6 +16,7 @@ class ModernPrefecture(models.Model):
     roman_name = models.CharField(max_length=255)
     x_coordinate = models.DecimalField(max_digits=15, decimal_places=12, blank=True, null=True)
     y_coordinate = models.DecimalField(max_digits=15, decimal_places=12, blank=True, null=True)
+    notes = models.TextField(blank=True)
     
     # generate natural key
     def natural_key(self):
@@ -23,6 +24,9 @@ class ModernPrefecture(models.Model):
 
     def __unicode__(self):
         return self.roman_name
+
+    class Meta:
+        ordering = ['roman_name']
 
 
 class ProvinceManager(models.Manager):
@@ -39,6 +43,8 @@ class Province(models.Model):
     modern_name = models.ForeignKey('ModernPrefecture', blank=True, null=True)
     x_coordinate = models.DecimalField(max_digits=15, decimal_places=12, blank=True, null=True)
     y_coordinate = models.DecimalField(max_digits=15, decimal_places=12, blank=True, null=True)
+    notes = models.TextField(blank=True)
+
 
     # generate natural key
     def natural_key(self):
@@ -47,6 +53,8 @@ class Province(models.Model):
     def __unicode__(self):
         return self.roman_name
 
+    class Meta:
+        ordering = ['roman_name']
         
 class ModernCityManager(models.Manager):
     def get_by_natural_key(self, roman_name):
@@ -63,6 +71,7 @@ class ModernCity(models.Model):
     prefecture = models.ForeignKey('ModernPrefecture', blank=True, null=True)
     x_coordinate = models.DecimalField(max_digits=15, decimal_places=12, blank=True, null=True)
     y_coordinate = models.DecimalField(max_digits=15, decimal_places=12, blank=True, null=True)
+    notes = models.TextField(blank=True)
 
     # generate natural key
     def natural_key(self):
@@ -73,6 +82,7 @@ class ModernCity(models.Model):
 
     class Meta:
         verbose_name_plural = 'Modern cities'
+        ordering = ['roman_name']
          
     
 class CityManager(models.Manager):
@@ -91,6 +101,7 @@ class City(models.Model):
     province = models.ForeignKey('Province', blank=True, null=True)
     x_coordinate = models.DecimalField(max_digits=15, decimal_places=12, blank=True, null=True)
     y_coordinate = models.DecimalField(max_digits=15, decimal_places=12, blank=True, null=True)
+    notes = models.TextField(blank=True)
 
     # generate natural key
     def natural_key(self):
@@ -101,6 +112,7 @@ class City(models.Model):
 
     class Meta:
         verbose_name_plural = 'Cities'
+        ordering = ['roman_name']
 
         
 class ModernAreaManager(models.Manager):
@@ -117,7 +129,8 @@ class ModernArea(models.Model):
     roman_name = models.CharField(max_length=255)
     x_coordinate = models.DecimalField(max_digits=15, decimal_places=12, blank=True, null=True)
     y_coordinate = models.DecimalField(max_digits=15, decimal_places=12, blank=True, null=True)
-
+    notes = models.TextField(blank=True)
+    
     # generate natural key
     def natural_key(self):
         return (self.roman_name)
@@ -127,6 +140,7 @@ class ModernArea(models.Model):
 
     class Meta:
         verbose_name_plural = 'Modern areas'      
+        ordering = ['roman_name']
 
         
 class AreaManager(models.Manager):
@@ -144,6 +158,7 @@ class Area(models.Model):
     modern_name = models.ForeignKey('ModernArea', blank=True, null=True)
     x_coordinate = models.DecimalField(max_digits=15, decimal_places=12, blank=True, null=True)
     y_coordinate = models.DecimalField(max_digits=15, decimal_places=12, blank=True, null=True)
+    notes = models.TextField(blank=True)
 
     # generate natural key
     def natural_key(self):
@@ -154,7 +169,8 @@ class Area(models.Model):
 
     class Meta:
         verbose_name_plural = 'Areas'
-    
+        ordering = ['roman_name']
+
    
 class StructureManager(models.Manager):
      def get_by_natural_key(self, roman_name):
@@ -173,6 +189,7 @@ class Structure(models.Model):
     x_coordinate = models.DecimalField(max_digits=15, decimal_places=12, blank=True, null=True)
     y_coordinate = models.DecimalField(max_digits=15, decimal_places=12, blank=True, null=True)
     z_coordinate = models.DecimalField(max_digits=15, decimal_places=12, blank=True, null=True)
+    notes = models.TextField(blank=True)
 
     # generate natural key
     def natural_key(self):
@@ -181,6 +198,8 @@ class Structure(models.Model):
     def __unicode__(self):
         return self.roman_name
 
+    class Meta:
+        ordering = ['roman_name']
     
 # Resource classes for export
 class ProvinceResource(resources.ModelResource):

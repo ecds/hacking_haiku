@@ -74,7 +74,7 @@ class Work(models.Model):
     dates_converted.short_description = 'JCal'
     
     class Meta:
-        ordering = ['japanese_title']
+        ordering = ['english_title']
 
         
 class VerseManager(models.Manager):

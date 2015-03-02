@@ -15,12 +15,16 @@ class Role(models.Model):
     objects = RoleManager()
 
     name = models.CharField(max_length=255)
+    notes = models.TextField(blank=True)
 
     def natural_key(self):
         return self.name
     
     def __unicode__(self):
         return self.name
+    
+    class Meta:
+        ordering = ['name']
 
     
 #Groups
@@ -43,6 +47,8 @@ class Group(models.Model):
     def __unicode__(self):
         return self.name
 
+    class Meta:
+        ordering = ['name']
     
     
 # Person and person parts
