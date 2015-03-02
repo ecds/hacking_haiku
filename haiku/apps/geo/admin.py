@@ -24,6 +24,14 @@ class VerseCityInline(LinkedInline):
     verbose_name_plural = "Related Verses"
 
     
+class VerseProvinceInline(LinkedInline):
+    model = Verse.provinces.through
+    extra = 0
+    admin_model_parent = "texts"
+    admin_model_path = "verse"
+    verbose_name_plural = "Related Verses"
+
+    
 class VerseAreaInline(LinkedInline):
     model = Verse.areas.through
     extra = 0
@@ -45,7 +53,7 @@ class ProvinceAdmin(ProvinceExport, admin.ModelAdmin):
     list_display = ['roman_name', 'japanese_name', 'modern_name']
     search_fields = ['roman_name', 'japanese_name', 'modern_name']
     inlines = [
-        
+        VerseProvinceInline
         ]
 
 admin.site.register(Province, ProvinceAdmin)
