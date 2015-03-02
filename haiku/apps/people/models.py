@@ -86,7 +86,7 @@ class Person(models.Model):
         if not self.roman_family_name:
             return self.roman_personal_name
         else:
-            return '%s %s' % (self.roman_family_name, self.roman_family_name)
+            return '%s %s' % (self.roman_family_name, self.roman_personal_name)
 
     def dates_converted(self):
         if self.birth_japanese != None and self.birth_japanese != '' and \

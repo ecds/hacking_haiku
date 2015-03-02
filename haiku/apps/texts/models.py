@@ -89,7 +89,7 @@ class Verse(models.Model):
     japanese_text = models.CharField(max_length=255)
     english_text = models.TextField(blank=True)
     romanization = models.TextField(blank=True)
-    author = models.ForeignKey(Person)
+    author = models.ForeignKey(Person, blank=True, null=True)
     work = models.ForeignKey(Work, blank=True, null=True)
     other_works = models.ManyToManyField(Work, related_name='other_works', verbose_name='Additional Publications', null=True, blank=True)
     japanese_date = models.CharField(max_length=255, blank=True)
