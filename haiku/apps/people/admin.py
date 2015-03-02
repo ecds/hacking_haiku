@@ -1,6 +1,5 @@
 from haiku.apps.admin.models import LinkedInline, get_admin_url
 from haiku.apps.texts.models import Work, Verse, Kigo
-from haiku.apps.people.forms import PersonForm, GroupForm
 from haiku.apps.people.models import Group, Person, Name, PenName, Role, RoleResource, GroupResource, PersonResource
 from django.conf import settings
 from django.contrib import admin
@@ -34,7 +33,6 @@ class GroupExport(ExportActionModelAdmin):
 
 
 class GroupAdmin(GroupExport, admin.ModelAdmin):
-    form = GroupForm
     list_display = ['name']
     search_fields = ['name']
     inlines = [
@@ -74,6 +72,5 @@ class PersonAdmin(PersonExport, admin.ModelAdmin):
         AltNamesInline,
         PenNamesInline,
     ]
-    form = PersonForm
 
 admin.site.register(Person, PersonAdmin)

@@ -14,6 +14,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # Application definition
 
+
 INSTALLED_APPS = (
     'django_admin_bootstrapped',
     #default apps#####################
@@ -84,7 +85,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
-# STATICFILES_DIRS = ( os.path.join('static'), )
+STATICFILES_DIRS = ( os.path.join('static'), )
 
 STATIC_URL = '/static/'
 STATIC_ROOT = ''
@@ -104,7 +105,7 @@ SOUTH_TESTS_MIGRATE = False
 ADMIN_REORDER = (
     ("texts", ('Kigo', 'Verse', 'Work')),
     ("people", ('Person', 'School')),
-    ("geo", ('Structure', 'City', 'Province', 'ModernCity', 'ModernPrefecture')),
+    ("geo", ('Structure', 'City', 'Province','Area', 'ModernCity', 'ModernPrefecture', 'ModernArea')),
     ("auth", ('User', 'Group',)),
 )
 

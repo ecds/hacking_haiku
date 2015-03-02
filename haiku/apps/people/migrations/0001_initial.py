@@ -28,8 +28,8 @@ class Migration(SchemaMigration):
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('japanese_family_name', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
             ('japanese_personal_name', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('roman_family_name', self.gf('django.db.models.fields.CharField')(max_length=100)),
-            ('roman_personal_name', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
+            ('roman_family_name', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
+            ('roman_personal_name', self.gf('django.db.models.fields.CharField')(max_length=100)),
             ('birth_japanese', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
             ('death_japanese', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
             ('birth_roman', self.gf('django_date_extensions.fields.ApproximateDateField')(max_length=10, blank=True)),
@@ -144,8 +144,8 @@ class Migration(SchemaMigration):
             'japanese_personal_name': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
             'notes': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'roles': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['people.Role']", 'null': 'True', 'blank': 'True'}),
-            'roman_family_name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'roman_personal_name': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
+            'roman_family_name': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
+            'roman_personal_name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'uri': ('django.db.models.fields.URLField', [], {'max_length': '200', 'blank': 'True'})
         },
         u'people.role': {

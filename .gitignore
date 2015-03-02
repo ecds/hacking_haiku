@@ -5,7 +5,7 @@ dist/
 build/
 
 haiku/localsettings.py
-#haiku/settings.py
+haiku/settings.py
 venv
 admin
 bootstrap

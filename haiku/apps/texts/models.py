@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.safestring import mark_safe 
-from haiku.apps.geo.models import Structure, City
+from haiku.apps.geo.models import Structure, City, Area, Province
 from haiku.apps.people.models import Person
 from django_date_extensions import fields as ddx
 from import_export import resources
@@ -90,7 +90,7 @@ class Verse(models.Model):
     english_text = models.TextField(blank=True)
     romanization = models.TextField(blank=True)
     author = models.ForeignKey(Person)
-    work = models.ForeignKey(Work)
+    work = models.ForeignKey(Work, blank=True, null=True)
     other_works = models.ManyToManyField(Work, related_name='other_works', verbose_name='Additional Publications', null=True, blank=True)
     japanese_date = models.CharField(max_length=255, blank=True)
     roman_date = ddx.ApproximateDateField(blank=True, null=True, help_text=mark_safe('YYYY, MM/YYYY, DD/MM/YYYY<br>Visit <a href="http://keisan.casio.jp/exec/system/1239884730" target="_blank">Keisan website</a> to convert'))
@@ -99,6 +99,8 @@ class Verse(models.Model):
     encounters = models.ManyToManyField(Person, related_name='encounters', blank=True, null=True)
     structures = models.ManyToManyField(Structure, blank=True, null=True)
     cities = models.ManyToManyField(City, blank=True, null=True)
+    provinces = models.ManyToManyField(Province, blank=True, null=True)
+    areas = models.ManyToManyField(Area, blank=True, null=True, help_text=mark_safe('Non-province areas such as lakes and mountains<br>'))
     allusions = models.ManyToManyField(Work, related_name='allusions', blank=True, null=True)
     notes = models.TextField(blank=True)
 
