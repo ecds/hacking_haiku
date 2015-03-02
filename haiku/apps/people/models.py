@@ -61,8 +61,8 @@ class Person(models.Model):
     )
     japanese_family_name = models.CharField(max_length=100, blank=True, verbose_name='Japanese family name')
     japanese_personal_name = models.CharField(max_length=100, blank=True, verbose_name='Japanese personal name(s)')
-    roman_family_name = models.CharField(max_length=100, verbose_name='Romanized family name')
-    roman_personal_name = models.CharField(max_length=100, blank=True, verbose_name='Romanized personal name(s)')
+    roman_family_name = models.CharField(max_length=100, blank=True, verbose_name='Romanized family name')
+    roman_personal_name = models.CharField(max_length=100, verbose_name='Romanized personal name(s)')
     birth_japanese = models.CharField(max_length=255, blank=True, verbose_name='Birth, Japanese date')
     death_japanese = models.CharField(max_length=255, blank=True, verbose_name='Death, Japanese date')
     birth_roman = ddx.ApproximateDateField(blank=True, verbose_name='Birth, Roman date', help_text=mark_safe('YYYY, MM/YYYY, DD/MM/YYYY<br>Visit <a href="http://keisan.casio.jp/exec/system/1239884730" target="_blank">Keisan website</a> to convert'))
@@ -77,8 +77,8 @@ class Person(models.Model):
         return (self.roman_family_name, self.roman_personal_name)
     
     def __unicode__(self):
-        if not self.roman_personal_name:
-            return self.roman_family_name
+        if not self.roman_family_name:
+            return self.roman_personal_name
         else:
             return '%s %s' % (self.roman_family_name, self.roman_family_name)
 

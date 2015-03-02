@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.conf import settings
 from haiku.apps.texts.models import Work, Verse, Kigo, WorkResource, VerseResource, KigoResource
-from haiku.apps.texts.forms import WorkForm, VerseForm, KigoForm
 from haiku.apps.admin.models import LinkedInline, get_admin_url
 from import_export.admin import ExportActionModelAdmin
 
@@ -28,7 +27,6 @@ class WorkAdmin(WorkExport, admin.ModelAdmin):
       css = { "all" : (settings.STATIC_URL +"css/admin/admin_styles.css",) }
     list_display = ['japanese_title', 'english_title', 'romanized_title', 'roman_date', 'dates_converted']
     search_fields = ['japanese_title', 'english_title', 'romanized_title', 'notes']
-    form = WorkForm
     inlines = [
         VerseInline,
         ]
@@ -45,7 +43,6 @@ class VerseAdmin(VerseExport, admin.ModelAdmin):
     class Media:
       js = (settings.STATIC_URL + 'js/admin/collapseTabularInlines.js',)
       css = { "all" : (settings.STATIC_URL +"css/admin/admin_styles.css",) }
-    form = VerseForm
     list_display = ['japanese_text', 'author', 'roman_date', 'kigo', 'dates_converted']
     search_fields = ['japanese_text', 'english_text', 'romanization', 'notes']
     inlines = [
@@ -57,7 +54,6 @@ admin.site.register(Verse, VerseAdmin)
 class KigoExport(ExportActionModelAdmin):
     resource_class = KigoResource
     to_encoding = 'utf-8'
-    form = KigoForm
     pass
 
 
