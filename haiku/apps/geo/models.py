@@ -1,5 +1,4 @@
 from django.db import models
-from import_export import resources
 
 
 class ModernPrefectureManager(models.Manager):
@@ -200,46 +199,4 @@ class Structure(models.Model):
 
     class Meta:
         ordering = ['roman_name']
-    
-# Resource classes for export
-class ProvinceResource(resources.ModelResource):
-
-    class Meta:
-        model = Province
-
-        
-class ModernPrefectureResource(resources.ModelResource):
-
-    class Meta:
-        model = ModernPrefecture
-
-        
-class CityResource(resources.ModelResource):
-
-    class Meta:
-        model = City
-
-        
-class ModernCityResource(resources.ModelResource):
-
-    class Meta:
-        model = ModernCity
-
-
-class AreaResource(resources.ModelResource):
-
-    class Meta:
-        model = Area
-
-        
-class ModernAreaResource(resources.ModelResource):
-
-    class Meta:
-        model = ModernArea
-
-        
-class StructureResource(resources.ModelResource):
-
-    class Meta:
-        model = Structure
     

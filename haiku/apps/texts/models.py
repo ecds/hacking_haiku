@@ -3,7 +3,6 @@ from django.utils.safestring import mark_safe
 from haiku.apps.geo.models import Structure, City, Area, Province
 from haiku.apps.people.models import Person
 from django_date_extensions import fields as ddx
-from import_export import resources
 
 
 class KigoManager(models.Manager):
@@ -150,24 +149,4 @@ class AltVerse(models.Model):
        ordering = ['japanese_text']
 
        
-        
-# Resource classes for export
-class WorkResource(resources.ModelResource):
-
-    class Meta:
-        model = Work
-
-        
-class VerseResource(resources.ModelResource):
-    #author = fields.Field(column_name='author', attribute='author', widget=ForeignKeyWidget(Person, 'name'))
-    #work
-    #kigo
-    class Meta:
-        model = Verse
-
-        
-class KigoResource(resources.ModelResource):
-
-    class Meta:
-        model = Kigo
         

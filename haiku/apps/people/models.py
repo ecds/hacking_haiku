@@ -1,6 +1,5 @@
 from django.db import models
 from django.utils.safestring import mark_safe 
-from import_export import resources
 from django_date_extensions import fields as ddx
 
 #Roles
@@ -151,20 +150,3 @@ class PenName(models.Model):
     def __unicode__(self):
         return self.romanized_name
 
-# Resource classes for export
-class RoleResource(resources.ModelResource):
-
-    class Meta:
-        model = Role
-
-        
-class GroupResource(resources.ModelResource):
-
-    class Meta:
-        model = Group
-
-        
-class PersonResource(resources.ModelResource):
-
-    class Meta:
-        model = Person

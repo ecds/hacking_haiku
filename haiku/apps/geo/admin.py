@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.conf import settings
 from django.utils.safestring import mark_safe 
-from haiku.apps.geo.models import Province, ModernPrefecture, City, ModernCity, Structure, Area, ModernArea, ProvinceResource, ModernPrefectureResource, CityResource, ModernCityResource, StructureResource, AreaResource, ModernAreaResource
+from haiku.apps.geo.models import Province, ModernPrefecture, City, ModernCity, Structure, Area, ModernArea
+from haiku.apps.geo.exports import ProvinceResource, ModernPrefectureResource, CityResource, ModernCityResource, StructureResource, AreaResource, ModernAreaResource
 from haiku.apps.people.models import Group, Person
 from haiku.apps.texts.models import Work, Verse, Kigo
 from haiku.apps.admin.models import LinkedInline, get_admin_url

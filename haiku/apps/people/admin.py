@@ -1,6 +1,7 @@
 from haiku.apps.admin.models import LinkedInline, get_admin_url
 from haiku.apps.texts.models import Work, Verse, Kigo
-from haiku.apps.people.models import Group, Person, Name, PenName, Role, RoleResource, GroupResource, PersonResource
+from haiku.apps.people.models import Group, Person, Name, PenName, Role
+from haiku.apps.people.exports import RoleResource, GroupResource, PersonResource
 from django.conf import settings
 from django.contrib import admin
 from import_export.admin import ExportActionModelAdmin
