@@ -8,9 +8,10 @@ from import_export.widgets import ForeignKeyWidget, DateWidget, ManyToManyWidget
 
 # Resource classes for export from admin
 class WorkResource(resources.ModelResource):
-
+    authors = fields.Field(column_name='authors', attribute='authors', widget=ManyToManyWidget(Person, ',', 'roman_personal_name'))
     class Meta:
         model = Work
+        export_order = ('id', 'japanese_title', 'english_title', 'romanized_title', 'authors', 'japanese_date', 'roman_date', 'notes')
 
         
 class VerseResource(resources.ModelResource):
