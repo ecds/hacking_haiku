@@ -25,7 +25,7 @@ class WorkAdmin(WorkExport, admin.ModelAdmin):
     class Media:
       js = (settings.STATIC_URL + 'js/admin/collapseTabularInlines.js',)
       css = { "all" : (settings.STATIC_URL +"css/admin/admin_styles.css",) }
-    list_display = ['japanese_title', 'english_title', 'romanized_title', 'roman_date', 'dates_converted']
+    list_display = ['id', 'japanese_title', 'english_title', 'romanized_title', 'roman_date', 'dates_converted']
     search_fields = ['japanese_title', 'english_title', 'romanized_title', 'notes']
     inlines = [
         VerseInline,

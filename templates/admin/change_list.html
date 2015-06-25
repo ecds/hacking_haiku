@@ -100,7 +100,7 @@
         {% endblock %}
 
         {% if cl.formset %}
-            <div>{{ cl.formset.management_form }}</div>
+            {{ cl.formset.management_form }}
         {% endif %}
 
         {% block result_list %}

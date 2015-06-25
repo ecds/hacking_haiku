@@ -41,8 +41,8 @@ class Kigo(models.Model):
 
         
 class WorkManager(models.Manager):
-     def get_by_natural_key(self, japanese_title):
-        return self.get(japanese_title=japanese_title)
+     def get_by_natural_key(self, english_title):
+        return self.get(english_title=english_title)
 
      
 class Work(models.Model):
@@ -59,7 +59,7 @@ class Work(models.Model):
 
     # generate natural key
     def natural_key(self):
-        return (self.japanese_title)
+        return (self.english_title)
     
     def __unicode__(self):
         return self.english_title

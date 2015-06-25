@@ -29,7 +29,7 @@ INSTALLED_APPS = (
     'haiku.apps.geo',
     'haiku.apps.people',
     'haiku.apps.texts',
-    'south',
+    # 'south',
     'import_export',
     # uncomment in your greatest time of need!
     #NOTE: as of 8/12/2014 the pypi version does not support Natural Keys
@@ -88,7 +88,7 @@ USE_TZ = True
 # STATICFILES_DIRS = ( os.path.join('static'), )
 
 STATIC_URL = '/static/'
-STATIC_ROOT = ''
+STATIC_ROOT = 'static'
 
 
 

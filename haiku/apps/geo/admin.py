@@ -51,7 +51,7 @@ class ProvinceAdmin(ProvinceExport, admin.ModelAdmin):
       js = (settings.STATIC_URL + 'js/admin/collapseTabularInlines.js',)
       css = { "all" : (settings.STATIC_URL +"css/admin/admin_styles.css",) }
     list_display = ['roman_name', 'japanese_name', 'modern_name']
-    search_fields = ['roman_name', 'japanese_name', 'modern_name']
+    search_fields = ['roman_name', 'japanese_name']
     inlines = [
         VerseProvinceInline
         ]
@@ -89,7 +89,7 @@ class CityAdmin(CityExport, admin.ModelAdmin):
       js = (settings.STATIC_URL + 'js/admin/collapseTabularInlines.js',)
       css = { "all" : (settings.STATIC_URL +"css/admin/admin_styles.css",) }
     list_display = ['roman_name', 'japanese_name', 'province', 'modern_name']
-    search_fields = ['roman_name', 'japanese_name', 'province', 'modern_name']
+    search_fields = ['roman_name', 'japanese_name']
     inlines = [
         VerseCityInline
         ]
@@ -108,7 +108,7 @@ class ModernCityAdmin(ModernCityExport, admin.ModelAdmin):
       js = (settings.STATIC_URL + 'js/admin/collapseTabularInlines.js',)
       css = { "all" : (settings.STATIC_URL +"css/admin/admin_styles.css",) }
     list_display = ['roman_name', 'japanese_name', 'prefecture']
-    search_fields = ['roman_name', 'japanese_name', 'prefecture']
+    search_fields = ['roman_name', 'japanese_name']
     inlines = [
         
         ]
@@ -127,7 +127,7 @@ class AreaAdmin(AreaExport, admin.ModelAdmin):
       js = (settings.STATIC_URL + 'js/admin/collapseTabularInlines.js',)
       css = { "all" : (settings.STATIC_URL +"css/admin/admin_styles.css",) }
     list_display = ['roman_name', 'japanese_name', 'modern_name']
-    search_fields = ['roman_name', 'japanese_name', 'modern_name']
+    search_fields = ['roman_name', 'japanese_name']
     inlines = [
         VerseAreaInline
         ]
@@ -165,7 +165,7 @@ class StructureAdmin(StructureExport, admin.ModelAdmin):
       js = (settings.STATIC_URL + 'js/admin/collapseTabularInlines.js',)
       css = { "all" : (settings.STATIC_URL +"css/admin/admin_styles.css",) }
     list_display = ['roman_name', 'japanese_name', 'city', 'province']
-    search_fields = ['roman_name', 'japanese_name', 'city', 'province']
+    search_fields = ['roman_name', 'japanese_name']
     inlines = [
         VerseStructureInline
         ]
