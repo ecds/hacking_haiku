@@ -50,7 +50,7 @@ class ProvinceAdmin(ProvinceExport, admin.ModelAdmin):
     class Media:
       js = (settings.STATIC_URL + 'js/admin/collapseTabularInlines.js',)
       css = { "all" : (settings.STATIC_URL +"css/admin/admin_styles.css",) }
-    list_display = ['roman_name', 'japanese_name', 'modern_name']
+    list_display = ['roman_name', 'japanese_name', 'modern_name', 'x_coordinate', 'y_coordinate']
     search_fields = ['roman_name', 'japanese_name']
     inlines = [
         VerseProvinceInline
@@ -69,7 +69,7 @@ class ModernPrefectureAdmin(ModernPrefectureExport, admin.ModelAdmin):
     class Media:
       js = (settings.STATIC_URL + 'js/admin/collapseTabularInlines.js',)
       css = { "all" : (settings.STATIC_URL +"css/admin/admin_styles.css",) }
-    list_display = ['roman_name', 'japanese_name']
+    list_display = ['roman_name', 'japanese_name', 'x_coordinate', 'y_coordinate']
     search_fields = ['roman_name', 'japanese_name']
     inlines = [
         
@@ -88,7 +88,7 @@ class CityAdmin(CityExport, admin.ModelAdmin):
     class Media:
       js = (settings.STATIC_URL + 'js/admin/collapseTabularInlines.js',)
       css = { "all" : (settings.STATIC_URL +"css/admin/admin_styles.css",) }
-    list_display = ['roman_name', 'japanese_name', 'province', 'modern_name']
+    list_display = ['roman_name', 'japanese_name', 'province', 'modern_name', 'x_coordinate', 'y_coordinate']
     search_fields = ['roman_name', 'japanese_name']
     inlines = [
         VerseCityInline
@@ -107,7 +107,7 @@ class ModernCityAdmin(ModernCityExport, admin.ModelAdmin):
     class Media:
       js = (settings.STATIC_URL + 'js/admin/collapseTabularInlines.js',)
       css = { "all" : (settings.STATIC_URL +"css/admin/admin_styles.css",) }
-    list_display = ['roman_name', 'japanese_name', 'prefecture']
+    list_display = ['roman_name', 'japanese_name', 'prefecture', 'x_coordinate', 'y_coordinate']
     search_fields = ['roman_name', 'japanese_name']
     inlines = [
         
@@ -126,7 +126,7 @@ class AreaAdmin(AreaExport, admin.ModelAdmin):
     class Media:
       js = (settings.STATIC_URL + 'js/admin/collapseTabularInlines.js',)
       css = { "all" : (settings.STATIC_URL +"css/admin/admin_styles.css",) }
-    list_display = ['roman_name', 'japanese_name', 'modern_name']
+    list_display = ['roman_name', 'japanese_name', 'modern_name', 'x_coordinate', 'y_coordinate']
     search_fields = ['roman_name', 'japanese_name']
     inlines = [
         VerseAreaInline
@@ -145,7 +145,7 @@ class ModernAreaAdmin(ModernAreaExport, admin.ModelAdmin):
     class Media:
       js = (settings.STATIC_URL + 'js/admin/collapseTabularInlines.js',)
       css = { "all" : (settings.STATIC_URL +"css/admin/admin_styles.css",) }
-    list_display = ['roman_name', 'japanese_name']
+    list_display = ['roman_name', 'japanese_name', 'x_coordinate', 'y_coordinate']
     search_fields = ['roman_name', 'japanese_name']
     inlines = [
         
@@ -164,7 +164,7 @@ class StructureAdmin(StructureExport, admin.ModelAdmin):
     class Media:
       js = (settings.STATIC_URL + 'js/admin/collapseTabularInlines.js',)
       css = { "all" : (settings.STATIC_URL +"css/admin/admin_styles.css",) }
-    list_display = ['roman_name', 'japanese_name', 'city', 'province']
+    list_display = ['roman_name', 'japanese_name', 'city', 'province', 'x_coordinate', 'y_coordinate', 'z_coordinate']
     search_fields = ['roman_name', 'japanese_name']
     inlines = [
         VerseStructureInline
