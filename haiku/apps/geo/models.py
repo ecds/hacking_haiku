@@ -13,7 +13,7 @@ class ModernPrefecture(models.Model):
     objects = ModernPrefectureManager()
 
     japanese_name = models.CharField(max_length=255, blank=True)
-    roman_name = models.CharField(max_length=255)
+    roman_name = models.CharField(max_length=255, unique=True)
     x_coordinate = models.DecimalField(max_digits=15, decimal_places=12, blank=True, null=True)
     y_coordinate = models.DecimalField(max_digits=15, decimal_places=12, blank=True, null=True)
     notes = models.TextField(blank=True)
@@ -39,7 +39,7 @@ class Province(models.Model):
     objects = ProvinceManager()
 
     japanese_name = models.CharField(max_length=255, blank=True)
-    roman_name = models.CharField(max_length=255)
+    roman_name = models.CharField(max_length=255, unique=True)
     modern_name = models.ForeignKey('ModernPrefecture', blank=True, null=True)
     x_coordinate = models.DecimalField(max_digits=15, decimal_places=12, blank=True, null=True)
     y_coordinate = models.DecimalField(max_digits=15, decimal_places=12, blank=True, null=True)
@@ -67,7 +67,7 @@ class ModernCity(models.Model):
     objects = ModernCityManager()
 
     japanese_name =  models.CharField(max_length=255, blank=True)
-    roman_name = models.CharField(max_length=255)
+    roman_name = models.CharField(max_length=255, unique=True)
     prefecture = models.ForeignKey('ModernPrefecture', blank=True, null=True)
     x_coordinate = models.DecimalField(max_digits=15, decimal_places=12, blank=True, null=True)
     y_coordinate = models.DecimalField(max_digits=15, decimal_places=12, blank=True, null=True)
@@ -96,7 +96,7 @@ class City(models.Model):
     objects = CityManager()
 
     japanese_name =  models.CharField(max_length=255, blank=True)
-    roman_name = models.CharField(max_length=255)
+    roman_name = models.CharField(max_length=255, unique=True)
     modern_name = models.ForeignKey('ModernCity', blank=True, null=True)
     province = models.ForeignKey('Province', blank=True, null=True)
     x_coordinate = models.DecimalField(max_digits=15, decimal_places=12, blank=True, null=True)
@@ -126,7 +126,7 @@ class ModernArea(models.Model):
     objects = ModernAreaManager()
 
     japanese_name =  models.CharField(max_length=255, blank=True)
-    roman_name = models.CharField(max_length=255)
+    roman_name = models.CharField(max_length=255, unique=True)
     x_coordinate = models.DecimalField(max_digits=15, decimal_places=12, blank=True, null=True)
     y_coordinate = models.DecimalField(max_digits=15, decimal_places=12, blank=True, null=True)
     notes = models.TextField(blank=True)
@@ -154,7 +154,7 @@ class Area(models.Model):
     objects = AreaManager()
 
     japanese_name =  models.CharField(max_length=255, blank=True)
-    roman_name = models.CharField(max_length=255)
+    roman_name = models.CharField(max_length=255, unique=True)
     modern_name = models.ForeignKey('ModernArea', blank=True, null=True)
     x_coordinate = models.DecimalField(max_digits=15, decimal_places=12, blank=True, null=True)
     y_coordinate = models.DecimalField(max_digits=15, decimal_places=12, blank=True, null=True)
@@ -183,7 +183,7 @@ class Structure(models.Model):
     objects = StructureManager()
 
     japanese_name =  models.CharField(max_length=255, blank=True)
-    roman_name = models.CharField(max_length=255)
+    roman_name = models.CharField(max_length=255, unique=True)
     city = models.ForeignKey('City', blank=True, null=True)
     province = models.ForeignKey('Province', blank=True, null=True)
     x_coordinate = models.DecimalField(max_digits=15, decimal_places=12, blank=True, null=True)
