@@ -60,7 +60,7 @@ admin.site.register(Province, ProvinceAdmin)
 
 
 class ModernPrefectureExport(ExportActionModelAdmin):
-    resource_class = ModernPrefecture
+    resource_class = ModernPrefectureResource
     to_encoding = 'utf-8'
     pass
 
@@ -79,7 +79,7 @@ admin.site.register(ModernPrefecture, ModernPrefectureAdmin)
 
 
 class CityExport(ExportActionModelAdmin):
-    resource_class = City
+    resource_class = CityResource
     to_encoding = 'utf-8'
     pass
 
@@ -98,7 +98,7 @@ admin.site.register(City, CityAdmin)
 
 
 class ModernCityExport(ExportActionModelAdmin):
-    resource_class = ModernCity
+    resource_class = ModernCityResource
     to_encoding = 'utf-8'
     pass
 
@@ -117,7 +117,7 @@ admin.site.register(ModernCity, ModernCityAdmin)
 
 
 class AreaExport(ExportActionModelAdmin):
-    resource_class = Area
+    resource_class = AreaResource
     to_encoding = 'utf-8'
     pass
 
@@ -136,7 +136,7 @@ admin.site.register(Area, AreaAdmin)
 
 
 class ModernAreaExport(ExportActionModelAdmin):
-    resource_class = ModernArea
+    resource_class = ModernAreaResource
     to_encoding = 'utf-8'
     pass
 
@@ -155,7 +155,7 @@ admin.site.register(ModernArea, ModernAreaAdmin)
 
 
 class StructureExport(ExportActionModelAdmin):
-    resource_class = Structure
+    resource_class = StructureResource
     to_encoding = 'utf-8'
     pass
 
