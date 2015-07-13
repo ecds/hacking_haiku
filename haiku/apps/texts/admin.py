@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.conf import settings
-from haiku.apps.texts.models import Work, Verse, Kigo, WorkResource, VerseResource, KigoResource
+from haiku.apps.texts.models import Work, Verse, Kigo
+from haiku.apps.texts.exports import WorkResource, VerseResource, KigoResource
 #from haiku.apps.admin.models import LinkedInline, get_admin_url
 from import_export.admin import ExportActionModelAdmin
 
