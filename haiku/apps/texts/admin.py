@@ -1,18 +1,18 @@
 from django.contrib import admin
 from django.conf import settings
 from haiku.apps.texts.models import Work, Verse, Kigo, WorkResource, VerseResource, KigoResource
-from haiku.apps.admin.models import LinkedInline, get_admin_url
+#from haiku.apps.admin.models import LinkedInline, get_admin_url
 from import_export.admin import ExportActionModelAdmin
 
 
-class VerseInline(LinkedInline):
-    model = Verse
-    extra = 0
-    fields = ['japanese_text', 'author']
-    readonly_fields = ['japanese_text', 'author']
-    verbose_name_plural = "Related Verses"
-    admin_model_parent = "texts"
-    admin_model_path = "verse"
+# class VerseInline(LinkedInline):
+#     model = Verse
+#     extra = 0
+#     fields = ['japanese_text', 'author']
+#     readonly_fields = ['japanese_text', 'author']
+#     verbose_name_plural = "Related Verses"
+#     admin_model_parent = "texts"
+#     admin_model_path = "verse"
 
 
 class WorkExport(ExportActionModelAdmin):
@@ -28,7 +28,7 @@ class WorkAdmin(WorkExport, admin.ModelAdmin):
     list_display = ['id', 'japanese_title', 'english_title', 'romanized_title', 'roman_date', 'dates_converted']
     search_fields = ['japanese_title', 'english_title', 'romanized_title', 'notes']
     inlines = [
-        VerseInline,
+    #VerseInline,
         ]
 admin.site.register(Work, WorkAdmin)
 
@@ -65,7 +65,7 @@ class KigoAdmin(KigoExport, admin.ModelAdmin):
     list_filter = ['season']
     search_fields = ['japanese', 'english', 'romanization']
     inlines = [
-        VerseInline,
+    #VerseInline,
         ]
 admin.site.register(Kigo, KigoAdmin)
 

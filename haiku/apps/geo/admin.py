@@ -4,40 +4,40 @@ from django.utils.safestring import mark_safe
 from haiku.apps.geo.models import Province, ModernPrefecture, City, ModernCity, Structure, Area, ModernArea, ProvinceResource, ModernPrefectureResource, CityResource, ModernCityResource, StructureResource, AreaResource, ModernAreaResource
 from haiku.apps.people.models import Group, Person
 from haiku.apps.texts.models import Work, Verse, Kigo
-from haiku.apps.admin.models import LinkedInline, get_admin_url
+#from haiku.apps.admin.models import LinkedInline, get_admin_url
 from import_export.admin import ExportActionModelAdmin
 
 
-class VerseStructureInline(LinkedInline):
-    model = Verse.structures.through
-    extra = 0
-    admin_model_parent = "texts"
-    admin_model_path = "verse"
-    verbose_name_plural = "Related Verses"
+# class VerseStructureInline(LinkedInline):
+#     model = Verse.structures.through
+#     extra = 0
+#     admin_model_parent = "texts"
+#     admin_model_path = "verse"
+#     verbose_name_plural = "Related Verses"
 
     
-class VerseCityInline(LinkedInline):
-    model = Verse.cities.through
-    extra = 0
-    admin_model_parent = "texts"
-    admin_model_path = "verse"
-    verbose_name_plural = "Related Verses"
+# class VerseCityInline(LinkedInline):
+#     model = Verse.cities.through
+#     extra = 0
+#     admin_model_parent = "texts"
+#     admin_model_path = "verse"
+#     verbose_name_plural = "Related Verses"
 
     
-class VerseProvinceInline(LinkedInline):
-    model = Verse.provinces.through
-    extra = 0
-    admin_model_parent = "texts"
-    admin_model_path = "verse"
-    verbose_name_plural = "Related Verses"
+# class VerseProvinceInline(LinkedInline):
+#     model = Verse.provinces.through
+#     extra = 0
+#     admin_model_parent = "texts"
+#     admin_model_path = "verse"
+#     verbose_name_plural = "Related Verses"
 
     
-class VerseAreaInline(LinkedInline):
-    model = Verse.areas.through
-    extra = 0
-    admin_model_parent = "texts"
-    admin_model_path = "verse"
-    verbose_name_plural = "Related Verses"
+# class VerseAreaInline(LinkedInline):
+#     model = Verse.areas.through
+#     extra = 0
+#     admin_model_parent = "texts"
+#     admin_model_path = "verse"
+#     verbose_name_plural = "Related Verses"
  
 
 class ProvinceExport(ExportActionModelAdmin):
@@ -53,7 +53,7 @@ class ProvinceAdmin(ProvinceExport, admin.ModelAdmin):
     list_display = ['roman_name', 'japanese_name', 'modern_name', 'x_coordinate', 'y_coordinate']
     search_fields = ['roman_name', 'japanese_name']
     inlines = [
-        VerseProvinceInline
+    #VerseProvinceInline
         ]
 
 admin.site.register(Province, ProvinceAdmin)
@@ -91,7 +91,7 @@ class CityAdmin(CityExport, admin.ModelAdmin):
     list_display = ['roman_name', 'japanese_name', 'province', 'modern_name', 'x_coordinate', 'y_coordinate']
     search_fields = ['roman_name', 'japanese_name']
     inlines = [
-        VerseCityInline
+    #VerseCityInline
         ]
 
 admin.site.register(City, CityAdmin)
@@ -129,7 +129,7 @@ class AreaAdmin(AreaExport, admin.ModelAdmin):
     list_display = ['roman_name', 'japanese_name', 'modern_name', 'x_coordinate', 'y_coordinate']
     search_fields = ['roman_name', 'japanese_name']
     inlines = [
-        VerseAreaInline
+    #VerseAreaInline
         ]
 
 admin.site.register(Area, AreaAdmin)
@@ -167,7 +167,7 @@ class StructureAdmin(StructureExport, admin.ModelAdmin):
     list_display = ['roman_name', 'japanese_name', 'city', 'province', 'x_coordinate', 'y_coordinate', 'z_coordinate']
     search_fields = ['roman_name', 'japanese_name']
     inlines = [
-        VerseStructureInline
+    #VerseStructureInline
         ]
 
 admin.site.register(Structure, StructureAdmin)
