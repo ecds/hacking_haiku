@@ -4,7 +4,6 @@ django-bootstrap3
 django-admin-bootstrapped
 django-import-export
 
-
 #partial dates
 git+git://github.com/dracos/django-date-extensions.git
 six
