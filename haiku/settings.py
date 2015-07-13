@@ -18,6 +18,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 INSTALLED_APPS = (
     'django_admin_bootstrapped',
     #default apps#####################
+    #'django.contrib.admin.apps.AdminConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
