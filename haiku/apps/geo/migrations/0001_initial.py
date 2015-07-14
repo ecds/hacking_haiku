@@ -1,180 +1,187 @@
 # -*- coding: utf-8 -*-
-from south.utils import datetime_utils as datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
+from __future__ import unicode_literals
+
+from django.db import models, migrations
+import django_date_extensions.fields
 
 
-class Migration(SchemaMigration):
+class Migration(migrations.Migration):
 
-    def forwards(self, orm):
-        # Adding model 'ModernPrefecture'
-        db.create_table(u'geo_modernprefecture', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('japanese_name', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('roman_name', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('x_coordinate', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=15, decimal_places=12, blank=True)),
-            ('y_coordinate', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=15, decimal_places=12, blank=True)),
-        ))
-        db.send_create_signal(u'geo', ['ModernPrefecture'])
+    dependencies = [
+        ('texts', '__first__'),
+    ]
 
-        # Adding model 'Province'
-        db.create_table(u'geo_province', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('japanese_name', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('roman_name', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('modern_name', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['geo.ModernPrefecture'], null=True, blank=True)),
-            ('x_coordinate', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=15, decimal_places=12, blank=True)),
-            ('y_coordinate', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=15, decimal_places=12, blank=True)),
-        ))
-        db.send_create_signal(u'geo', ['Province'])
-
-        # Adding model 'ModernCity'
-        db.create_table(u'geo_moderncity', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('japanese_name', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('roman_name', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('prefecture', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['geo.ModernPrefecture'], null=True, blank=True)),
-            ('x_coordinate', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=15, decimal_places=12, blank=True)),
-            ('y_coordinate', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=15, decimal_places=12, blank=True)),
-        ))
-        db.send_create_signal(u'geo', ['ModernCity'])
-
-        # Adding model 'City'
-        db.create_table(u'geo_city', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('japanese_name', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('roman_name', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('modern_name', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['geo.ModernCity'], null=True, blank=True)),
-            ('province', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['geo.Province'], null=True, blank=True)),
-            ('x_coordinate', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=15, decimal_places=12, blank=True)),
-            ('y_coordinate', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=15, decimal_places=12, blank=True)),
-        ))
-        db.send_create_signal(u'geo', ['City'])
-
-        # Adding model 'ModernArea'
-        db.create_table(u'geo_modernarea', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('japanese_name', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('roman_name', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('x_coordinate', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=15, decimal_places=12, blank=True)),
-            ('y_coordinate', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=15, decimal_places=12, blank=True)),
-        ))
-        db.send_create_signal(u'geo', ['ModernArea'])
-
-        # Adding model 'Area'
-        db.create_table(u'geo_area', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('japanese_name', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('roman_name', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('modern_name', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['geo.ModernArea'], null=True, blank=True)),
-            ('x_coordinate', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=15, decimal_places=12, blank=True)),
-            ('y_coordinate', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=15, decimal_places=12, blank=True)),
-        ))
-        db.send_create_signal(u'geo', ['Area'])
-
-        # Adding model 'Structure'
-        db.create_table(u'geo_structure', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('japanese_name', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('roman_name', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('city', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['geo.City'], null=True, blank=True)),
-            ('province', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['geo.Province'], null=True, blank=True)),
-            ('x_coordinate', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=15, decimal_places=12, blank=True)),
-            ('y_coordinate', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=15, decimal_places=12, blank=True)),
-            ('z_coordinate', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=15, decimal_places=12, blank=True)),
-        ))
-        db.send_create_signal(u'geo', ['Structure'])
-
-
-    def backwards(self, orm):
-        # Deleting model 'ModernPrefecture'
-        db.delete_table(u'geo_modernprefecture')
-
-        # Deleting model 'Province'
-        db.delete_table(u'geo_province')
-
-        # Deleting model 'ModernCity'
-        db.delete_table(u'geo_moderncity')
-
-        # Deleting model 'City'
-        db.delete_table(u'geo_city')
-
-        # Deleting model 'ModernArea'
-        db.delete_table(u'geo_modernarea')
-
-        # Deleting model 'Area'
-        db.delete_table(u'geo_area')
-
-        # Deleting model 'Structure'
-        db.delete_table(u'geo_structure')
-
-
-    models = {
-        u'geo.area': {
-            'Meta': {'object_name': 'Area'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'japanese_name': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
-            'modern_name': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['geo.ModernArea']", 'null': 'True', 'blank': 'True'}),
-            'roman_name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'x_coordinate': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '15', 'decimal_places': '12', 'blank': 'True'}),
-            'y_coordinate': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '15', 'decimal_places': '12', 'blank': 'True'})
-        },
-        u'geo.city': {
-            'Meta': {'object_name': 'City'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'japanese_name': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
-            'modern_name': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['geo.ModernCity']", 'null': 'True', 'blank': 'True'}),
-            'province': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['geo.Province']", 'null': 'True', 'blank': 'True'}),
-            'roman_name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'x_coordinate': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '15', 'decimal_places': '12', 'blank': 'True'}),
-            'y_coordinate': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '15', 'decimal_places': '12', 'blank': 'True'})
-        },
-        u'geo.modernarea': {
-            'Meta': {'object_name': 'ModernArea'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'japanese_name': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
-            'roman_name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'x_coordinate': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '15', 'decimal_places': '12', 'blank': 'True'}),
-            'y_coordinate': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '15', 'decimal_places': '12', 'blank': 'True'})
-        },
-        u'geo.moderncity': {
-            'Meta': {'object_name': 'ModernCity'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'japanese_name': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
-            'prefecture': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['geo.ModernPrefecture']", 'null': 'True', 'blank': 'True'}),
-            'roman_name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'x_coordinate': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '15', 'decimal_places': '12', 'blank': 'True'}),
-            'y_coordinate': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '15', 'decimal_places': '12', 'blank': 'True'})
-        },
-        u'geo.modernprefecture': {
-            'Meta': {'object_name': 'ModernPrefecture'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'japanese_name': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
-            'roman_name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'x_coordinate': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '15', 'decimal_places': '12', 'blank': 'True'}),
-            'y_coordinate': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '15', 'decimal_places': '12', 'blank': 'True'})
-        },
-        u'geo.province': {
-            'Meta': {'object_name': 'Province'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'japanese_name': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
-            'modern_name': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['geo.ModernPrefecture']", 'null': 'True', 'blank': 'True'}),
-            'roman_name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'x_coordinate': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '15', 'decimal_places': '12', 'blank': 'True'}),
-            'y_coordinate': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '15', 'decimal_places': '12', 'blank': 'True'})
-        },
-        u'geo.structure': {
-            'Meta': {'object_name': 'Structure'},
-            'city': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['geo.City']", 'null': 'True', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'japanese_name': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
-            'province': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['geo.Province']", 'null': 'True', 'blank': 'True'}),
-            'roman_name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'x_coordinate': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '15', 'decimal_places': '12', 'blank': 'True'}),
-            'y_coordinate': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '15', 'decimal_places': '12', 'blank': 'True'}),
-            'z_coordinate': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '15', 'decimal_places': '12', 'blank': 'True'})
-        }
-    }
-
-    complete_apps = ['geo']
+    operations = [
+        migrations.CreateModel(
+            name='Area',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('japanese_name', models.CharField(max_length=255, blank=True)),
+                ('roman_name', models.CharField(unique=True, max_length=255)),
+                ('x_coordinate', models.DecimalField(null=True, max_digits=15, decimal_places=12, blank=True)),
+                ('y_coordinate', models.DecimalField(null=True, max_digits=15, decimal_places=12, blank=True)),
+                ('notes', models.TextField(blank=True)),
+            ],
+            options={
+                'ordering': ['roman_name'],
+                'verbose_name_plural': 'Areas',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='City',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('japanese_name', models.CharField(max_length=255, blank=True)),
+                ('roman_name', models.CharField(unique=True, max_length=255)),
+                ('x_coordinate', models.DecimalField(null=True, max_digits=15, decimal_places=12, blank=True)),
+                ('y_coordinate', models.DecimalField(null=True, max_digits=15, decimal_places=12, blank=True)),
+                ('notes', models.TextField(blank=True)),
+            ],
+            options={
+                'ordering': ['roman_name'],
+                'verbose_name_plural': 'Cities',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='ModernArea',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('japanese_name', models.CharField(max_length=255, blank=True)),
+                ('roman_name', models.CharField(unique=True, max_length=255)),
+                ('x_coordinate', models.DecimalField(null=True, max_digits=15, decimal_places=12, blank=True)),
+                ('y_coordinate', models.DecimalField(null=True, max_digits=15, decimal_places=12, blank=True)),
+                ('notes', models.TextField(blank=True)),
+            ],
+            options={
+                'ordering': ['roman_name'],
+                'verbose_name_plural': 'Modern areas',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='ModernCity',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('japanese_name', models.CharField(max_length=255, blank=True)),
+                ('roman_name', models.CharField(unique=True, max_length=255)),
+                ('x_coordinate', models.DecimalField(null=True, max_digits=15, decimal_places=12, blank=True)),
+                ('y_coordinate', models.DecimalField(null=True, max_digits=15, decimal_places=12, blank=True)),
+                ('notes', models.TextField(blank=True)),
+            ],
+            options={
+                'ordering': ['roman_name'],
+                'verbose_name_plural': 'Modern cities',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='ModernPrefecture',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('japanese_name', models.CharField(max_length=255, blank=True)),
+                ('roman_name', models.CharField(unique=True, max_length=255)),
+                ('x_coordinate', models.DecimalField(null=True, max_digits=15, decimal_places=12, blank=True)),
+                ('y_coordinate', models.DecimalField(null=True, max_digits=15, decimal_places=12, blank=True)),
+                ('notes', models.TextField(blank=True)),
+            ],
+            options={
+                'ordering': ['roman_name'],
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Province',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('japanese_name', models.CharField(max_length=255, blank=True)),
+                ('roman_name', models.CharField(unique=True, max_length=255)),
+                ('x_coordinate', models.DecimalField(null=True, max_digits=15, decimal_places=12, blank=True)),
+                ('y_coordinate', models.DecimalField(null=True, max_digits=15, decimal_places=12, blank=True)),
+                ('notes', models.TextField(blank=True)),
+                ('modern_name', models.ForeignKey(blank=True, to='geo.ModernPrefecture', null=True)),
+            ],
+            options={
+                'ordering': ['roman_name'],
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Stop',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('order', models.PositiveIntegerField(default=1, editable=False, db_index=True)),
+                ('japanese_date', models.CharField(max_length=255, blank=True)),
+                ('roman_date', django_date_extensions.fields.ApproximateDateField(help_text=b'YYYY, MM/YYYY, DD/MM/YYYY<br>Visit <a href="http://keisan.casio.jp/exec/system/1239884730" target="_blank">Keisan website</a> to convert', max_length=10, null=True, blank=True)),
+                ('notes', models.TextField(blank=True)),
+                ('area', models.ForeignKey(blank=True, to='geo.Area', null=True)),
+                ('city', models.ForeignKey(blank=True, to='geo.City', null=True)),
+                ('province', models.ForeignKey(blank=True, to='geo.Province', null=True)),
+            ],
+            options={
+                'ordering': ['order'],
+                'abstract': False,
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='StopVerse',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('stop', models.ForeignKey(to='geo.Stop')),
+                ('verse', models.ForeignKey(to='texts.Verse')),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Structure',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('japanese_name', models.CharField(max_length=255, blank=True)),
+                ('roman_name', models.CharField(unique=True, max_length=255)),
+                ('x_coordinate', models.DecimalField(null=True, max_digits=15, decimal_places=12, blank=True)),
+                ('y_coordinate', models.DecimalField(null=True, max_digits=15, decimal_places=12, blank=True)),
+                ('z_coordinate', models.DecimalField(null=True, max_digits=15, decimal_places=12, blank=True)),
+                ('notes', models.TextField(blank=True)),
+                ('city', models.ForeignKey(blank=True, to='geo.City', null=True)),
+                ('province', models.ForeignKey(blank=True, to='geo.Province', null=True)),
+            ],
+            options={
+                'ordering': ['roman_name'],
+            },
+            bases=(models.Model,),
+        ),
+        migrations.AddField(
+            model_name='stop',
+            name='structure',
+            field=models.ForeignKey(blank=True, to='geo.Structure', null=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='moderncity',
+            name='prefecture',
+            field=models.ForeignKey(blank=True, to='geo.ModernPrefecture', null=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='city',
+            name='modern_name',
+            field=models.ForeignKey(blank=True, to='geo.ModernCity', null=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='city',
+            name='province',
+            field=models.ForeignKey(blank=True, to='geo.Province', null=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='area',
+            name='modern_name',
+            field=models.ForeignKey(blank=True, to='geo.ModernArea', null=True),
+            preserve_default=True,
+        ),
+    ]

@@ -1,5 +1,7 @@
 from django.db import models
-from import_export import resources
+from django.utils.safestring import mark_safe 
+from django_date_extensions import fields as ddx
+from adminsortable.models import Sortable
 
 
 class ModernPrefectureManager(models.Manager):
@@ -200,5 +202,25 @@ class Structure(models.Model):
 
     class Meta:
         ordering = ['roman_name']
-    
 
+
+class Stop(Sortable):
+    objects = models.Manager()
+
+    class Meta(Sortable.Meta):
+        pass
+
+    city =  models.ForeignKey('City', blank=True, null=True)
+    province =  models.ForeignKey('Province', blank=True, null=True)
+    area =  models.ForeignKey('Area', blank=True, null=True)
+    structure =  models.ForeignKey('Structure', blank=True, null=True)
+    japanese_date = models.CharField(max_length=255, blank=True)
+    roman_date = ddx.ApproximateDateField(blank=True, null=True, help_text=mark_safe('YYYY, MM/YYYY, DD/MM/YYYY<br>Visit <a href="http://keisan.casio.jp/exec/system/1239884730" target="_blank">Keisan website</a> to convert'))  
+    notes = models.TextField(blank=True)
+
+
+class StopVerse(models.Model):
+    objects = models.Manager()
+
+    stop = models.ForeignKey('Stop')
+    verse = models.ForeignKey('texts.Verse')

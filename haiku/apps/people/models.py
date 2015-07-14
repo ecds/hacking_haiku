@@ -1,6 +1,5 @@
 from django.db import models
 from django.utils.safestring import mark_safe 
-from import_export import resources
 from django_date_extensions import fields as ddx
 
 #Roles

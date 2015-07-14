@@ -1,9 +1,8 @@
 from django.db import models
 from django.utils.safestring import mark_safe 
+from django_date_extensions import fields as ddx
 from haiku.apps.geo.models import Structure, City, Area, Province
 from haiku.apps.people.models import Person
-from django_date_extensions import fields as ddx
-from import_export import resources
 
 
 class KigoManager(models.Manager):

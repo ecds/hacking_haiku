@@ -32,6 +32,7 @@ INSTALLED_APPS = (
     'haiku.apps.texts',
     # 'south',
     'import_export',
+    'adminsortable',
     # uncomment in your greatest time of need!
     #NOTE: as of 8/12/2014 the pypi version does not support Natural Keys
     # This version does: https://github.com/athom09/django-fixture-magic

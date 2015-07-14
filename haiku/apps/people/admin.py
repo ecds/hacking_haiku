@@ -68,6 +68,7 @@ class PersonAdmin(PersonExport, admin.ModelAdmin):
     list_display = ['roman_family_name', 'roman_personal_name', 'gender', 'uri', 'dates_converted']
     list_filter = ['gender', 'groups', 'roles']
     search_fields = ['roman_family_name', 'roman_personal_name', 'gender', 'notes', 'uri']
+    filter_horizontal = ['roles', 'groups']
     list_display_links = ['roman_family_name', 'roman_personal_name']
     inlines = [
         AltNamesInline,

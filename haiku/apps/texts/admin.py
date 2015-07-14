@@ -28,6 +28,7 @@ class WorkAdmin(WorkExport, admin.ModelAdmin):
       css = { "all" : (settings.STATIC_URL +"css/admin/admin_styles.css",) }
     list_display = ['id', 'japanese_title', 'english_title', 'romanized_title', 'roman_date', 'dates_converted']
     search_fields = ['japanese_title', 'english_title', 'romanized_title', 'notes']
+    filter_horizontal = ['authors']
     inlines = [
     #VerseInline,
         ]
@@ -46,6 +47,7 @@ class VerseAdmin(VerseExport, admin.ModelAdmin):
       css = { "all" : (settings.STATIC_URL +"css/admin/admin_styles.css",) }
     list_display = ['japanese_text', 'author', 'roman_date', 'kigo', 'dates_converted']
     search_fields = ['japanese_text', 'english_text', 'romanization', 'notes']
+    filter_horizontal = ['other_works', 'encounters', 'structures', 'cities', 'provinces', 'areas', 'allusions']
     inlines = [
         
     ]

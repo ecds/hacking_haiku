@@ -1,13 +1,18 @@
 from django.contrib import admin
 from django.conf import settings
 from django.utils.safestring import mark_safe 
-from haiku.apps.geo.models import Province, ModernPrefecture, City, ModernCity, Structure, Area, ModernArea
+from import_export.admin import ExportActionModelAdmin
+from adminsortable.admin import SortableAdmin
+from haiku.apps.geo.models import Province, ModernPrefecture, City, ModernCity, Structure, Area, ModernArea, Stop, StopVerse
 from haiku.apps.geo.exports import ProvinceResource, ModernPrefectureResource, CityResource, ModernCityResource, StructureResource, AreaResource, ModernAreaResource
 from haiku.apps.people.models import Group, Person
 from haiku.apps.texts.models import Work, Verse, Kigo
 #from haiku.apps.admin.models import LinkedInline, get_admin_url
-from import_export.admin import ExportActionModelAdmin
 
+class VerseInline(admin.TabularInline):
+    model = StopVerse
+    verbose_name_plural = 'Verses'
+    extra = 1
 
 # class VerseStructureInline(LinkedInline):
 #     model = Verse.structures.through
@@ -172,3 +177,13 @@ class StructureAdmin(StructureExport, admin.ModelAdmin):
         ]
 
 admin.site.register(Structure, StructureAdmin)
+
+
+class StopAdmin(SortableAdmin):
+    list_display = ['order', 'city', 'province', 'area', 'structure', 'roman_date']
+    search_fields = ['city', 'province', 'area', 'structure', 'roman_date', 'japanese_date']
+    inlines = [
+        VerseInline
+    ]
+
+admin.site.register(Stop, StopAdmin)
