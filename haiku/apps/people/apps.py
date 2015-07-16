@@ -3,5 +3,5 @@
 from django.apps import AppConfig
 
 class PeopleConfig(AppConfig):
-    name = 'people'
-    verbose_name = "people"
+    name = 'haiku_people'
+    verbose_name = "haiku.apps.people"
