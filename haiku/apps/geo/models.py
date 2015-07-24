@@ -218,6 +218,21 @@ class Stop(Sortable):
     roman_date = ddx.ApproximateDateField(blank=True, null=True, help_text=mark_safe('YYYY, MM/YYYY, DD/MM/YYYY<br>Visit <a href="http://keisan.casio.jp/exec/system/1239884730" target="_blank">Keisan website</a> to convert'))  
     notes = models.TextField(blank=True)
 
+    def __unicode__(self):
+        parts = []
+        if self.city:
+            parts.append(self.city.roman_name)
+        if self.province:
+            parts.append(self.province.roman_name)
+        if self.area:
+            parts.append(self.area.roman_name)
+        if self.structure:
+            parts.append(self.structure.roman_name)
+        if self.roman_date:
+            parts.append(str(self.roman_date))
+        parts = [x for x in parts if x != None]
+        return ' - '.join(parts)
+
 
 class StopVerse(models.Model):
     objects = models.Manager()
