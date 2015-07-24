@@ -30,7 +30,7 @@ INSTALLED_APPS = (
     'haiku.apps.geo',
     'haiku.apps.people',
     'haiku.apps.texts',
-    # 'south',
+    'south',
     'import_export',
     'adminsortable',
     # uncomment in your greatest time of need!

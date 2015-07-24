@@ -1,107 +1,160 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
+from south.utils import datetime_utils as datetime
+from south.db import db
+from south.v2 import SchemaMigration
+from django.db import models
 
-from django.db import models, migrations
-import django_date_extensions.fields
+
+class Migration(SchemaMigration):
+
+    def forwards(self, orm):
+        # Adding model 'Role'
+        db.create_table(u'people_role', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=255)),
+            ('notes', self.gf('django.db.models.fields.TextField')(blank=True)),
+        ))
+        db.send_create_signal(u'people', ['Role'])
+
+        # Adding model 'Group'
+        db.create_table(u'people_group', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=255)),
+            ('notes', self.gf('django.db.models.fields.TextField')(blank=True)),
+        ))
+        db.send_create_signal(u'people', ['Group'])
+
+        # Adding model 'Person'
+        db.create_table(u'people_person', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('japanese_family_name', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
+            ('japanese_personal_name', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
+            ('roman_family_name', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
+            ('roman_personal_name', self.gf('django.db.models.fields.CharField')(max_length=100)),
+            ('birth_japanese', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
+            ('death_japanese', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
+            ('birth_roman', self.gf('django_date_extensions.fields.ApproximateDateField')(max_length=10, blank=True)),
+            ('death_roman', self.gf('django_date_extensions.fields.ApproximateDateField')(max_length=10, blank=True)),
+            ('gender', self.gf('django.db.models.fields.CharField')(max_length=1, blank=True)),
+            ('uri', self.gf('django.db.models.fields.URLField')(max_length=200, blank=True)),
+            ('notes', self.gf('django.db.models.fields.TextField')(blank=True)),
+        ))
+        db.send_create_signal(u'people', ['Person'])
+
+        # Adding unique constraint on 'Person', fields ['roman_family_name', 'roman_personal_name']
+        db.create_unique(u'people_person', ['roman_family_name', 'roman_personal_name'])
+
+        # Adding M2M table for field roles on 'Person'
+        m2m_table_name = db.shorten_name(u'people_person_roles')
+        db.create_table(m2m_table_name, (
+            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
+            ('person', models.ForeignKey(orm[u'people.person'], null=False)),
+            ('role', models.ForeignKey(orm[u'people.role'], null=False))
+        ))
+        db.create_unique(m2m_table_name, ['person_id', 'role_id'])
+
+        # Adding M2M table for field groups on 'Person'
+        m2m_table_name = db.shorten_name(u'people_person_groups')
+        db.create_table(m2m_table_name, (
+            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
+            ('person', models.ForeignKey(orm[u'people.person'], null=False)),
+            ('group', models.ForeignKey(orm[u'people.group'], null=False))
+        ))
+        db.create_unique(m2m_table_name, ['person_id', 'group_id'])
+
+        # Adding model 'Name'
+        db.create_table(u'people_name', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('japanese_family_name', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
+            ('japanese_personal_name', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
+            ('roman_family_name', self.gf('django.db.models.fields.CharField')(max_length=100)),
+            ('roman_personal_name', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
+            ('person', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['people.Person'])),
+        ))
+        db.send_create_signal(u'people', ['Name'])
+
+        # Adding model 'PenName'
+        db.create_table(u'people_penname', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('japanese_name', self.gf('django.db.models.fields.CharField')(max_length=200, blank=True)),
+            ('roman_name', self.gf('django.db.models.fields.CharField')(max_length=200)),
+            ('person', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['people.Person'])),
+        ))
+        db.send_create_signal(u'people', ['PenName'])
 
 
-class Migration(migrations.Migration):
+    def backwards(self, orm):
+        # Removing unique constraint on 'Person', fields ['roman_family_name', 'roman_personal_name']
+        db.delete_unique(u'people_person', ['roman_family_name', 'roman_personal_name'])
 
-    dependencies = [
-    ]
+        # Deleting model 'Role'
+        db.delete_table(u'people_role')
 
-    operations = [
-        migrations.CreateModel(
-            name='Group',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('name', models.CharField(max_length=255)),
-                ('notes', models.TextField(blank=True)),
-            ],
-            options={
-                'ordering': ['name'],
-            },
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name='Name',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('japanese_family_name', models.CharField(max_length=100, verbose_name=b'Japanese family name', blank=True)),
-                ('japanese_personal_name', models.CharField(max_length=100, verbose_name=b'Japanese personal name(s)', blank=True)),
-                ('roman_family_name', models.CharField(max_length=100, verbose_name=b'Romanized family name')),
-                ('roman_personal_name', models.CharField(max_length=100, verbose_name=b'Romanized personal name(s)', blank=True)),
-            ],
-            options={
-            },
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name='PenName',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('japanese_name', models.CharField(max_length=200, blank=True)),
-                ('roman_name', models.CharField(max_length=200, verbose_name=b'Romanized name')),
-            ],
-            options={
-            },
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name='Person',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('japanese_family_name', models.CharField(max_length=100, verbose_name=b'Japanese family name', blank=True)),
-                ('japanese_personal_name', models.CharField(max_length=100, verbose_name=b'Japanese personal name(s)', blank=True)),
-                ('roman_family_name', models.CharField(max_length=100, verbose_name=b'Romanized family name', blank=True)),
-                ('roman_personal_name', models.CharField(max_length=100, verbose_name=b'Romanized personal name(s)')),
-                ('birth_japanese', models.CharField(max_length=255, verbose_name=b'Birth, Japanese date', blank=True)),
-                ('death_japanese', models.CharField(max_length=255, verbose_name=b'Death, Japanese date', blank=True)),
-                ('birth_roman', django_date_extensions.fields.ApproximateDateField(help_text=b'YYYY, MM/YYYY, DD/MM/YYYY<br>Visit <a href="http://keisan.casio.jp/exec/system/1239884730" target="_blank">Keisan website</a> to convert', max_length=10, verbose_name=b'Birth, Roman date', blank=True)),
-                ('death_roman', django_date_extensions.fields.ApproximateDateField(help_text=b'YYYY, MM/YYYY, DD/MM/YYYY<br>Visit <a href="http://keisan.casio.jp/exec/system/1239884730" target="_blank">Keisan website</a> to convert', max_length=10, verbose_name=b'Death, Roman date', blank=True)),
-                ('gender', models.CharField(blank=True, max_length=1, choices=[(b'F', b'Female'), (b'M', b'Male')])),
-                ('uri', models.URLField(help_text=b'<a href="http://www.viaf.org" target="_blank">Virtual International Authority File</a>', blank=True)),
-                ('notes', models.TextField(blank=True)),
-                ('groups', models.ManyToManyField(to='people.Group', null=True, blank=True)),
-            ],
-            options={
-                'ordering': ['roman_family_name', 'roman_personal_name'],
-                'verbose_name_plural': 'People',
-            },
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name='Role',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('name', models.CharField(max_length=255)),
-                ('notes', models.TextField(blank=True)),
-            ],
-            options={
-                'ordering': ['name'],
-            },
-            bases=(models.Model,),
-        ),
-        migrations.AddField(
-            model_name='person',
-            name='roles',
-            field=models.ManyToManyField(to='people.Role', null=True, blank=True),
-            preserve_default=True,
-        ),
-        migrations.AlterUniqueTogether(
-            name='person',
-            unique_together=set([('roman_family_name', 'roman_personal_name')]),
-        ),
-        migrations.AddField(
-            model_name='penname',
-            name='person',
-            field=models.ForeignKey(to='people.Person'),
-            preserve_default=True,
-        ),
-        migrations.AddField(
-            model_name='name',
-            name='person',
-            field=models.ForeignKey(to='people.Person'),
-            preserve_default=True,
-        ),
-    ]
+        # Deleting model 'Group'
+        db.delete_table(u'people_group')
+
+        # Deleting model 'Person'
+        db.delete_table(u'people_person')
+
+        # Removing M2M table for field roles on 'Person'
+        db.delete_table(db.shorten_name(u'people_person_roles'))
+
+        # Removing M2M table for field groups on 'Person'
+        db.delete_table(db.shorten_name(u'people_person_groups'))
+
+        # Deleting model 'Name'
+        db.delete_table(u'people_name')
+
+        # Deleting model 'PenName'
+        db.delete_table(u'people_penname')
+
+
+    models = {
+        u'people.group': {
+            'Meta': {'ordering': "['name']", 'object_name': 'Group'},
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
+            'notes': ('django.db.models.fields.TextField', [], {'blank': 'True'})
+        },
+        u'people.name': {
+            'Meta': {'object_name': 'Name'},
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'japanese_family_name': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
+            'japanese_personal_name': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
+            'person': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['people.Person']"}),
+            'roman_family_name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
+            'roman_personal_name': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'})
+        },
+        u'people.penname': {
+            'Meta': {'object_name': 'PenName'},
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'japanese_name': ('django.db.models.fields.CharField', [], {'max_length': '200', 'blank': 'True'}),
+            'person': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['people.Person']"}),
+            'roman_name': ('django.db.models.fields.CharField', [], {'max_length': '200'})
+        },
+        u'people.person': {
+            'Meta': {'ordering': "['roman_family_name', 'roman_personal_name']", 'unique_together': "(('roman_family_name', 'roman_personal_name'),)", 'object_name': 'Person'},
+            'birth_japanese': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
+            'birth_roman': ('django_date_extensions.fields.ApproximateDateField', [], {'max_length': '10', 'blank': 'True'}),
+            'death_japanese': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
+            'death_roman': ('django_date_extensions.fields.ApproximateDateField', [], {'max_length': '10', 'blank': 'True'}),
+            'gender': ('django.db.models.fields.CharField', [], {'max_length': '1', 'blank': 'True'}),
+            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['people.Group']", 'null': 'True', 'blank': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'japanese_family_name': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
+            'japanese_personal_name': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
+            'notes': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
+            'roles': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['people.Role']", 'null': 'True', 'blank': 'True'}),
+            'roman_family_name': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
+            'roman_personal_name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
+            'uri': ('django.db.models.fields.URLField', [], {'max_length': '200', 'blank': 'True'})
+        },
+        u'people.role': {
+            'Meta': {'ordering': "['name']", 'object_name': 'Role'},
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
+            'notes': ('django.db.models.fields.TextField', [], {'blank': 'True'})
+        }
+    }
+
+    complete_apps = ['people']

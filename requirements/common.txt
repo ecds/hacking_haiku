@@ -1,9 +1,10 @@
-Django>=1.7,<1.8
+Django>=1.6,<1.7
 mysql-python
 django-bootstrap3
 django-admin-bootstrapped
 django-import-export
 django-admin-sortable
+south
 
 #partial dates
 git+git://github.com/dracos/django-date-extensions.git
