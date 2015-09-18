@@ -122,6 +122,10 @@ class Verse(Sortable):
             return True
     dates_converted.boolean = True
     dates_converted.short_description = 'JCal'
+
+    class Meta:
+        ordering = ['order']
+
     
 
         
