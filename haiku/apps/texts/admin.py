@@ -4,6 +4,7 @@ from haiku.apps.texts.models import Work, Verse, Kigo
 from haiku.apps.texts.exports import WorkResource, VerseResource, KigoResource
 #from haiku.apps.admin.models import LinkedInline, get_admin_url
 from import_export.admin import ExportActionModelAdmin
+from adminsortable.admin import SortableAdmin
 
 
 # class VerseInline(LinkedInline):
@@ -41,11 +42,11 @@ class VerseExport(ExportActionModelAdmin):
     pass
 
 
-class VerseAdmin(VerseExport, admin.ModelAdmin):
+class VerseAdmin(VerseExport, SortableAdmin):
     class Media:
       js = (settings.STATIC_URL + 'js/admin/collapseTabularInlines.js',)
       css = { "all" : (settings.STATIC_URL +"css/admin/admin_styles.css",) }
-    list_display = ['japanese_text', 'author', 'roman_date', 'kigo', 'dates_converted']
+    list_display = ['order', 'japanese_text', 'romanization', 'author', 'roman_date', 'kigo', 'dates_converted']
     search_fields = ['japanese_text', 'english_text', 'romanization', 'notes']
     filter_horizontal = ['other_works', 'encounters', 'structures', 'cities', 'provinces', 'areas', 'allusions']
     inlines = [

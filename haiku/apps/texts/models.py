@@ -3,6 +3,7 @@ from django.utils.safestring import mark_safe
 from django_date_extensions import fields as ddx
 from haiku.apps.geo.models import Structure, City, Area, Province
 from haiku.apps.people.models import Person
+from adminsortable.models import Sortable
 
 
 class KigoManager(models.Manager):
@@ -81,9 +82,12 @@ class VerseManager(models.Manager):
         return self.get(japanese_text=japanese_text)
 
      
-class Verse(models.Model):
+class Verse(Sortable):
 
     objects = VerseManager()
+
+    class Meta(Sortable.Meta):
+        pass
 
     japanese_text = models.CharField(max_length=255)
     english_text = models.TextField(blank=True)
