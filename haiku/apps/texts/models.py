@@ -123,8 +123,6 @@ class Verse(Sortable):
     dates_converted.boolean = True
     dates_converted.short_description = 'JCal'
     
-    class Meta:
-        ordering = ['author', 'japanese_text']
 
         
 class AltVerseManager(models.Manager):
