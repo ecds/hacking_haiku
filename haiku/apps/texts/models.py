@@ -20,6 +20,7 @@ class Kigo(models.Model):
         ('Spring', 'Spring'),
         ('Summer', 'Summer'),
         ('Winter', 'Winter'),
+        ('New Year', 'New Year')
 
     )
 
