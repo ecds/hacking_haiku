@@ -25,9 +25,9 @@ class Kigo(models.Model):
     )
 
     japanese = models.CharField(max_length=50)
-    english = models.CharField(max_length=50)
-    romanization = models.CharField(max_length=50)
-    season = models.CharField(max_length=10, choices=SEASON_CHOICES)
+    english = models.CharField(max_length=50, blank=True)
+    romanization = models.CharField(max_length=50, blank=True)
+    season = models.CharField(max_length=10, choices=SEASON_CHOICES, blank=True)
     notes = models.TextField(blank=True)
 
     # generate natural key
@@ -113,7 +113,7 @@ class Verse(Sortable):
         return (self.japanese_text)
     
     def __unicode__(self):
-        return self.japanese_text
+        return self.id, self.japanese_text
 
     def dates_converted(self):
         if self.japanese_date != None and self.japanese_date != '' and \
