@@ -113,7 +113,7 @@ class Verse(Sortable):
         return (self.japanese_text)
     
     def __unicode__(self):
-        return self.japanese_text
+        return self.romanization
 
     def dates_converted(self):
         if self.japanese_date != None and self.japanese_date != '' and \
