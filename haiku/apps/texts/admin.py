@@ -46,7 +46,7 @@ class VerseAdmin(VerseExport, SortableAdmin):
     class Media:
       js = (settings.STATIC_URL + 'js/admin/collapseTabularInlines.js',)
       css = { "all" : (settings.STATIC_URL +"css/admin/admin_styles.css",) }
-    list_display = ['order', 'id', 'japanese_text', 'romanization', 'author', 'roman_date', 'kigo', 'dates_converted']
+    list_display = ['order', 'japanese_text', 'romanization', 'author', 'roman_date', 'kigo', 'dates_converted']
     search_fields = ['japanese_text', 'english_text', 'romanization', 'notes']
     filter_horizontal = ['other_works', 'encounters', 'structures', 'cities', 'provinces', 'areas', 'allusions']
     inlines = [
